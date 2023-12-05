@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela do Brasileirão</title>
+    <style>
+        /* Adicione estilos conforme necessário */
+    </style>
+</head>
+<body>
+
+    <h1>Tabela do Brasileirão</h1>
+
+    <div id="tabela">
+        <!-- Os times serão inseridos dinamicamente aqui -->
+    </div>
+
+    <button onclick="editarTabela()">Editar Tabela</button>
+
+    <script>
+        // Exemplo de dados iniciais
+        var times = [
+            { nome: "Time A", pontos: 30, icone: "iconeA.png" },
+            { nome: "Time B", pontos: 25, icone: "iconeB.png" },
+            // Adicione mais times conforme necessário
+        ];
+
+        // Função para exibir a tabela
+        function exibirTabela() {
+            // Limpar a tabela antes de exibir os times
+            document.getElementById('tabela').innerHTML = '';
+
+            // Ordenar os times por pontos (pontos decrescentes)
+            times.sort((a, b) => b.pontos - a.pontos);
+
+            // Exibir os times na tabela
+            times.forEach(time => {
+                var timeElemento = document.createElement('div');
+                timeElemento.innerHTML = `<img src="${time.icone}" alt="${time.nome}" width="30"> ${time.nome}: ${time.pontos} pontos`;
+                document.getElementById('tabela').appendChild(timeElemento);
+            });
+        }
+
+        // Função para permitir a edição da tabela pelos usuários
+        function editarTabela() {
+            times.forEach(time => {
+                // Permitir que os usuários editem os detalhes do time
+                var novoNome = prompt(`Editar nome do ${time.nome}:`, time.nome);
+                var novoIcone = prompt(`Editar ícone do ${time.nome}:`, time.icone);
+                var novosPontos = parseInt(prompt(`Editar pontos do ${time.nome}:`, time.pontos), 10);
+
+                // Atualizar os dados do time
+                time.nome = novoNome;
+                time.icone = novoIcone;
+                time.pontos = novosPontos;
+            });
+
+            // Atualizar e exibir a tabela após a edição
+            exibirTabela();
+        }
+
+        // Exibir a tabela inicial ao carregar a página
+        exibirTabela();
+    </script>
+</body>
+</html>
