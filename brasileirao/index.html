@@ -1,67 +1,352 @@
 <!DOCTYPE html>
+    <link rel="icon" href="icon.png">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabela do Brasileirão</title>
-    <style>
-        /* Adicione estilos conforme necessário */
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brasileirão - Campeonato Fifa </title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #171717; /* Overall background color */
+      color: #b1b4b9; /* Text color for body */
+    }
+
+    header {
+      background-color: #10502f; /* Updated header background color */
+      padding: 20px;
+      text-align: left;
+      color: white;
+      font-size: 18px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1;
+    }
+
+    header h1 {
+      margin: 0;
+      padding: 0;
+      display: inline;
+      cursor: pointer;
+      color: white; /* Text color for the title in the header */
+    }
+
+    header p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+      margin-left: 10px;
+    }
+
+    select {
+      padding: 5px;
+      font-size: 14px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 70%;
+      margin: 94px auto 20px;
+      background-color: #202124; /* Background color behind teams */
+    }
+
+    th, td {
+      border: 1px solid #202124; /* Match background color for no visible borders */
+      text-align: left;
+      padding: 8px;
+    }
+
+    td:first-child,
+    td:nth-child(3) {
+      width: 20px; /* Adjust the width as needed */
+    }
+
+    td:nth-child(2),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6),
+    td:nth-child(7),
+    td:nth-child(8),
+    td:nth-child(9) {
+      width: 10px; /* Adjust the width as needed */
+    }
+
+    #bestOfMatch {
+      margin: 20px auto;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Popup styles */
+    #popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+      z-index: 2;
+    }
+
+    #popup header {
+      background-color: #10502f;
+      color: white;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 8px 8px 0 0;
+      right: 0px;
+    }
+
+    #popup-content {
+      padding: 10px;
+    }
+
+    #close-popup {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Tabela do Brasileirão</h1>
+<header>
+  <h1 contenteditable="true">Brasileirão</h1>
+  <p>Match: <span id="matchNumber">1</span></p>
+  <select id="matchSelector" onchange="changeMatch()">
+    <!-- Add match options based on the number of matches -->
+    <option value="1" selected>1</option>
+    <option value="2">2</option>
+    <!-- Add more options as needed -->
+  </select>
+</header>
 
-    <div id="tabela">
-        <!-- Os times serão inseridos dinamicamente aqui -->
-    </div>
+<h2>Competition Leaderboard</h2>
 
-    <button onclick="editarTabela()">Editar Tabela</button>
+<table id="leaderboard">
+  <tr>
+    <th></th>
+    <th>Team</th>
+    <th>Pts</th>
+    <th>PJ</th>
+    <th>VIT</th>
+    <th>E</th>
+    <th>GM</th>
+    <th>GC</th>
+    <th>SG</th>
+  </tr>
+  <!-- Add 18 more teams as needed -->
+  <tr>
+    <td></td>
+    <td contenteditable="true">Team 1</td>
+    <td contenteditable="true">100</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td contenteditable="true">Team 2</td>
+    <td contenteditable="true">75</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td contenteditable="true">Team 3</td>
+    <td contenteditable="true">60</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td contenteditable="true">Team 4</td>
+    <td contenteditable="true">55</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td contenteditable="true">Team 5</td>
+    <td contenteditable="true">55</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+    <td contenteditable="true">0</td>
+  </tr>
+  <!-- Repeat the pattern for the remaining teams -->
+</table>
 
-    <script>
-        // Exemplo de dados iniciais
-        var times = [
-            { nome: "Time A", pontos: 30, icone: "iconeA.png" },
-            { nome: "Time B", pontos: 25, icone: "iconeB.png" },
-            // Adicione mais times conforme necessário
-        ];
+<button onclick="endTournament()">End Tournament</button>
 
-        // Função para exibir a tabela
-        function exibirTabela() {
-            // Limpar a tabela antes de exibir os times
-            document.getElementById('tabela').innerHTML = '';
+<!-- Popup for tournament end -->
+<div id="popup">
+  <header>
+    Your tournament has ended.
+    <span id="close-popup" onclick="closePopup()">X</span>
+  </header>
+  <div id="popup-content"></div>
+</div>
 
-            // Ordenar os times por pontos (pontos decrescentes)
-            times.sort((a, b) => b.pontos - a.pontos);
+<script>
+  // Function to sort the leaderboard based on scores and update positions
+  function sortLeaderboard() {
+    var table = document.getElementById("leaderboard");
+    var rows = Array.from(table.getElementsByTagName("tr")).slice(1); // Exclude the header row
+    rows.sort(function(a, b) {
+      var firstScore = parseInt(a.getElementsByTagName("td")[2].textContent);
+      var secondScore = parseInt(b.getElementsByTagName("td")[2].textContent);
+      return secondScore - firstScore;
+    });
 
-            // Exibir os times na tabela
-            times.forEach(time => {
-                var timeElemento = document.createElement('div');
-                timeElemento.innerHTML = `<img src="${time.icone}" alt="${time.nome}" width="30"> ${time.nome}: ${time.pontos} pontos`;
-                document.getElementById('tabela').appendChild(timeElemento);
-            });
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].getElementsByTagName("td")[0].textContent = (i + 1).toString();
+      table.appendChild(rows[i]);
+    }
+  }
+
+  // Initial sorting when the page loads
+  sortLeaderboard();
+
+  // Update positions when score variables are unfocused or Enter is pressed
+  var scoreCells = document.querySelectorAll("#leaderboard td:nth-child(3)");
+  scoreCells.forEach(function(cell) {
+    cell.addEventListener("blur", function() {
+      sortLeaderboard();
+      saveLeaderboard(); // Save leaderboard data to cookies
+    });
+
+    cell.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        cell.blur(); // Unfocus the textbox when Enter is pressed
+      }
+    });
+  });
+
+  // Update match number
+  var matchNumberElement = document.getElementById("matchNumber");
+  var matchSelector = document.getElementById("matchSelector");
+
+  function changeMatch() {
+    matchNumber = parseInt(matchSelector.value);
+    matchNumberElement.textContent = matchNumber.toString();
+    saveLeaderboard(); // Save leaderboard data to cookies
+  }
+
+  // Function to end the tournament and show results
+  function endTournament() {
+    // Retrieve the teams and their scores
+    var teams = Array.from(document.querySelectorAll("#leaderboard tr:not(:first-child) td:nth-child(2)"));
+    var scores = Array.from(document.querySelectorAll("#leaderboard tr:not(:first-child) td:nth-child(3)"));
+
+    // Find the team with the most points
+    var maxPoints = Math.max(...scores.map(score => parseInt(score.textContent)));
+    var maxPointsTeam = teams.find(team => parseInt(team.nextElementSibling.textContent) === maxPoints);
+
+    // Find the team with the least points
+    var minPoints = Math.min(...scores.map(score => parseInt(score.textContent)));
+    var minPointsTeam = teams.find(team => parseInt(team.nextElementSibling.textContent) === minPoints);
+
+    // Find the team with the least goals
+    var goals = Array.from(document.querySelectorAll("#leaderboard tr:not(:first-child) td:nth-child(6)"));
+    var minGoals = Math.min(...goals.map(goal => parseInt(goal.textContent)));
+    var minGoalsTeam = teams.find(team => parseInt(team.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.textContent) === minGoals);
+
+    // Show the results in the popup
+    var popupContent = document.getElementById("popup-content");
+    popupContent.innerHTML = `
+      <p>The team that got most points was: ${maxPointsTeam.textContent} with ${maxPoints} points.</p>
+      <p>The team who got the least points was: ${minPointsTeam.textContent} with ${minPoints} points.</p>
+      <p>The team with the least goals was: ${minGoalsTeam.textContent} with ${minGoals} goals.</p>
+    `;
+
+    // Show the popup
+    var popup = document.getElementById("popup");
+    popup.style.display = "block";
+  }
+
+  // Function to close the popup
+  function closePopup() {
+    var popup = document.getElementById("popup");
+    popup.style.display = "none";
+  }
+
+  // Function to save leaderboard data to cookies
+  function saveLeaderboard() {
+    var table = document.getElementById("leaderboard");
+    var leaderboardData = [];
+
+    // Iterate through rows and save data
+    var rows = Array.from(table.getElementsByTagName("tr")).slice(1); // Exclude the header row
+    rows.forEach(function(row) {
+      var cells = row.getElementsByTagName("td");
+      var rowData = [];
+      for (var i = 1; i < cells.length; i++) {
+        rowData.push(cells[i].textContent);
+      }
+      leaderboardData.push(rowData);
+    });
+
+    // Save data to cookies
+    document.cookie = "leaderboard=" + JSON.stringify(leaderboardData);
+  }
+
+  // Function to load leaderboard data from cookies
+  function loadLeaderboard() {
+    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)leaderboard\s*=\s*([^;]*).*$)|^.*$/, "$1");
+    if (cookieValue) {
+      var leaderboardData = JSON.parse(cookieValue);
+
+      // Iterate through rows and load data
+      var rows = Array.from(document.getElementById("leaderboard").getElementsByTagName("tr")).slice(1); // Exclude the header row
+      for (var i = 0; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName("td");
+        for (var j = 1; j < cells.length; j++) {
+          cells[j].textContent = leaderboardData[i][j - 1];
         }
+      }
 
-        // Função para permitir a edição da tabela pelos usuários
-        function editarTabela() {
-            times.forEach(time => {
-                // Permitir que os usuários editem os detalhes do time
-                var novoNome = prompt(`Editar nome do ${time.nome}:`, time.nome);
-                var novoIcone = prompt(`Editar ícone do ${time.nome}:`, time.icone);
-                var novosPontos = parseInt(prompt(`Editar pontos do ${time.nome}:`, time.pontos), 10);
+      sortLeaderboard();
+    }
+  }
 
-                // Atualizar os dados do time
-                time.nome = novoNome;
-                time.icone = novoIcone;
-                time.pontos = novosPontos;
-            });
+  // Load leaderboard data when the page loads
+  loadLeaderboard();
+</script>
 
-            // Atualizar e exibir a tabela após a edição
-            exibirTabela();
-        }
+<footer>
+  <p style="text-align: center; color: #b1b4b9; margin-top: 20px;">Running v0.5</p>
+</footer>
 
-        // Exibir a tabela inicial ao carregar a página
-        exibirTabela();
-    </script>
 </body>
 </html>
