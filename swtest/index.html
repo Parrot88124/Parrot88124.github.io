@@ -4,19 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Switch Input Logger</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #log-container { max-width: 400px; margin: auto; text-align: left; border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: auto; }
+    </style>
 </head>
 <body>
-    <h1>Press any key on Switch</h1>
-    <p id="log"></p>
+    <h1>Switch Input Logger</h1>
+    <p>Press buttons to log inputs:</p>
+    <div id="log-container"></div>
+    
+    <!-- Hidden input to capture focus -->
+    <input type="text" id="capture" style="position:absolute; top:-9999px;">
 
     <script>
-        document.addEventListener("keydown", (event) => {
-            const keyData = `Key: ${event.code} (${event.key})`;
-            console.log(keyData);
+        const captureInput = document.getElementById("capture");
+        const logContainer = document.getElementById("log-container");
 
-            // display on screen
-            document.getElementById("log").textContent = keyData;
+        document.addEventListener("keydown", (event) => {
+            event.preventDefault();
+            const keyData = `Pressed: ${event.code} (${event.key})`;
+            
+            // Add log entry
+            const logEntry = document.createElement("div");
+            logEntry.textContent = keyData;
+            logContainer.appendChild(logEntry);
+
+            // Auto-scroll to the bottom
+            logContainer.scrollTop = logContainer.scrollHeight;
         });
+
+        document.addEventListener("click", () => {
+            captureInput.focus(); // Refocus input if user clicks elsewhere
+        });
+
+        captureInput.focus(); // Force focus on input field
     </script>
 </body>
 </html>
