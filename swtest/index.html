@@ -28,12 +28,13 @@
             margin: 20px 0;
             font-size: 16px;
             cursor: pointer;
+            user-select: none;  /* Prevent button from being selected */
         }
     </style>
 </head>
 <body>
     <h1>Switch Key Logger</h1>
-    <button id="fullscreen-button">Enter Full-Screen Mode</button>
+    <button id="fullscreen-button" tabindex="-1">Enter Full-Screen Mode</button>
     <div id="log-container"></div>
 
     <!-- Hidden input to capture focus -->
@@ -41,9 +42,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gamepad.js/0.0.1/gamepad.min.js"></script>
     <script>
-        const captureInput = document.getElementById("capture");
         const logContainer = document.getElementById("log-container");
         const fullscreenButton = document.getElementById("fullscreen-button");
+        const captureInput = document.getElementById("capture");
 
         // Log the keys
         function logInput(message) {
@@ -66,8 +67,11 @@
             }
         }
 
-        // Full-screen button event
+        // Full-screen button event, prevent the gamepad from navigating it
         fullscreenButton.addEventListener("click", enterFullScreen);
+
+        // Make sure the button doesn't interact with the gamepad navigation
+        fullscreenButton.setAttribute("tabindex", "-1");
 
         // Focus the hidden input to capture the keys
         captureInput.focus();
@@ -82,9 +86,9 @@
 
         gamepad.bind(Gamepad.Event.CONNECTED, function (device) {
             logInput("Gamepad Detected");
-            playerReset(); // Assuming you have a player reset function
-            updateScore(); // Assuming you have a score update function
-            update(); // Assuming you have an update function
+            // playerReset(); // Assuming you have a player reset function
+            // updateScore(); // Assuming you have a score update function
+            // update(); // Assuming you have an update function
         });
 
         gamepad.bind(Gamepad.Event.BUTTON_DOWN, function (e) {
